@@ -1,0 +1,44 @@
+{% extends 'news/main.html' %}
+{% block context  %}
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Latest NEWS</h1>
+        <p class="lead text-muted">Millions of events happen every day in the world.If you don't want to miss these events,stay with us.</p>
+      </div>
+    </div>
+  </section>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for new in news|slice:'9' %}
+{#              {% if new.source.id %}#}
+                  <div class="col mt-4 ">
+                      <div class="card shadow-sm">
+                        <img src="{{ new.urlToImage }}" alt="" width="100%" height="45%">
+                        <div class="card-body">
+                          <p class="card-text" >{{ new.description|truncatechars:50 }}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <form action="{{ new.url }}" method="get">
+                                    <input type="submit" value="View" class="btn btn-sm btn-outline-secondary">
+                                </form>
+                            </div>
+                            <small class="text-muted">{{ new.publishedAt }}</small>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+{#              {% endif %}#}
+          {% endfor %}
+      <div class=" mx-auto d-flex justify-content-center ">
+          <form action="{% url 'news-all' %}">
+             <button class="mt-4 btn btn-sm btn-outline-secondary" type="submit">You might see</button>
+          </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
